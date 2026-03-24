@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import Image from 'next/image'
 import {
   CalendarDays,
   Briefcase,
@@ -16,7 +17,16 @@ export default function Home() {
       {/* Navigation */}
       <nav className="border-b border-gray-200 bg-white">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-yellow-600">SK-CONNECT</h1>
+          <div className="flex items-center gap-3">
+            <Image
+              src="/assets/logo.svg"
+              alt="SK-CONNECT logo"
+              width={80}
+              height={80}
+              priority
+            />
+            <h1 className="text-2xl font-bold text-yellow-600">SK-CONNECT</h1>
+          </div>
           <div className="flex gap-4">
             <Link href="/auth/login">
               <Button variant="outline">Login</Button>
