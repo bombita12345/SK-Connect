@@ -150,79 +150,81 @@ export default function TransparencyPage() {
         ))}
       </div>
 
-      {/* Budget Overview */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Barangay Budget Allocation ({activeYear})</CardTitle>
-          <CardDescription>
-            Total Budget: ₱1,500,000 | Allocation by Category
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Pie Chart */}
-            <div className="flex justify-center">
-              <ResponsiveContainer width="100%" height={300}>
-                <PieChart>
-                  <Pie
-                    data={budgetData}
-                    cx="50%"
-                    cy="50%"
-                    labelLine={false}
-                    label={({ name, percentage }) => `${name} ${percentage}%`}
-                    outerRadius={100}
-                    fill="#8884d8"
-                    dataKey="value"
-                  >
-                    {budgetData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index]} />
-                    ))}
-                  </Pie>
-                  <Tooltip formatter={(value) => `₱${value.toLocaleString()}`} />
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+        {/* Budget Overview */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Barangay Budget Allocation ({activeYear})</CardTitle>
+            <CardDescription>
+              Total Budget: ₱1,500,000 | Allocation by Category
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {/* Pie Chart */}
+              <div className="flex justify-center">
+                <ResponsiveContainer width="100%" height={300}>
+                  <PieChart>
+                    <Pie
+                      data={budgetData}
+                      cx="50%"
+                      cy="50%"
+                      labelLine={false}
+                      label={false}
+                      outerRadius={100}
+                      fill="#8884d8"
+                      dataKey="value"
+                    >
+                      {budgetData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={COLORS[index]} />
+                      ))}
+                    </Pie>
+                    <Tooltip formatter={(value) => `₱${value.toLocaleString()}`} />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
 
-            {/* Budget Details */}
-            <div className="space-y-4">
-              {budgetData.map((item, index) => (
-                <div key={index} className="flex items-between justify-between">
-                  <div className="flex items-center gap-3 flex-1">
-                    <div
-                      className="w-4 h-4 rounded"
-                      style={{ backgroundColor: COLORS[index] }}
-                    ></div>
-                    <span className="text-gray-700">{item.name}</span>
+              {/* Budget Details */}
+              <div className="space-y-4">
+                {budgetData.map((item, index) => (
+                  <div key={index} className="flex items-between justify-between">
+                    <div className="flex items-center gap-3 flex-1">
+                      <div
+                        className="w-4 h-4 rounded"
+                        style={{ backgroundColor: COLORS[index] }}
+                      ></div>
+                      <span className="text-gray-700">{item.name}</span>
+                    </div>
+                    <div className="text-right">
+                      <p className="font-semibold text-gray-900">₱{item.value.toLocaleString()}</p>
+                      <p className="text-xs text-gray-500">{item.percentage}%</p>
+                    </div>
                   </div>
-                  <div className="text-right">
-                    <p className="font-semibold text-gray-900">₱{item.value.toLocaleString()}</p>
-                    <p className="text-xs text-gray-500">{item.percentage}%</p>
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
 
-      {/* Monthly Expenditure */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Monthly Expenditure Trend</CardTitle>
-          <CardDescription>Barangay spending over the past 6 months</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={expenditureData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="month" />
-              <YAxis />
-              <Tooltip formatter={(value) => `₱${value.toLocaleString()}`} />
-              <Bar dataKey="amount" fill="#FCD34D" />
-            </BarChart>
-          </ResponsiveContainer>
-        </CardContent>
-      </Card>
+        {/* Monthly Expenditure */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Monthly Expenditure Trend</CardTitle>
+            <CardDescription>Barangay spending over the past 6 months</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={300}>
+              <BarChart data={expenditureData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="month" />
+                <YAxis />
+                <Tooltip formatter={(value) => `₱${value.toLocaleString()}`} />
+                <Bar dataKey="amount" fill="#FCD34D" />
+              </BarChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+      </div>
 
       {/* Tabs for Resolutions and Feedback */}
       <Tabs defaultValue="resolutions" className="w-full">
